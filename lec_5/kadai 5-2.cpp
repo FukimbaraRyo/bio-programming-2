@@ -35,7 +35,7 @@ int main(void){
     vector<string> tissue_name(NUM_TISSUES);
     vector<string> gene_name(NUM_GENES);
 
-    vector<vector<double>> expression_matrix(NUM_GENES, vector<double>(NUM_TISSUES, 0.0) );
+    vector<vector<double>> expression_matrix(NUM_GENES, vector<double>(NUM_TISSUES, 0) );
     
     LoadExpressionFile("gene_expression.txt",tissue_name, gene_name, expression_matrix);
 

@@ -36,14 +36,14 @@ int main(void){
     vector<string> tissue_name(NUM_TISSUES);
     vector<string> gene_name(NUM_GENES);
 
-    vector<vector<double>> expression_matrix(NUM_GENES, vector<double>(NUM_TISSUES, 0.0) );
+    vector<vector<double>> expression_matrix(NUM_GENES, vector<double>(NUM_TISSUES, 0) );
     
     LoadExpressionFile("gene_expression.txt",tissue_name, gene_name, expression_matrix);
 
-    vector<double> average(NUM_GENES, 0.0);
+    vector<double> average(NUM_GENES, 0);
 
     for(int i = 0; i < NUM_GENES; i++){
-        double sum = 0.0;
+        double sum = 0;
         for(int j = 0; j < NUM_TISSUES; j++){
             sum += expression_matrix[i][j];
         
@@ -66,17 +66,17 @@ int main(void){
     }
     cout << "\n"<< endl;
 
-    vector<double> variance(NUM_GENES, 0.0);
+    vector<double> variance(NUM_GENES, 0);
 
     for(int i = 0; i < NUM_GENES; i++){
-        double sum = 0.0;
+        double sum = 0;
         for(int j = 0; j < NUM_TISSUES; j++){
             double diff = expression_matrix[i][j] - average[i];
             sum += diff * diff;
         }
         variance[i] = sum / NUM_TISSUES;
     }
-    vector<double> score(NUM_GENES, 0.0);
+    vector<double> score(NUM_GENES, 0);
 
     for(int i = 0; i < NUM_GENES; i++){
         score[i] = average[i] / (sqrt(variance[i]) + 0.01);
