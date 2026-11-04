@@ -24,7 +24,7 @@ void LoadExpressionFile(string file_name, vector<string>& tissue_name,
     for(int i=0; i<NUM_TISSUES; i++){
         ifs >> tissue_name[i];
     }
-    for(int i=0; i<NUM_TISSUES; i++){
+    for(int i=0; i<NUM_GENES; i++){
         ifs >> gene_name[i];
         for(int j=0; j<NUM_TISSUES; j++){
             ifs >> expression_matrix[i][j];
@@ -64,7 +64,7 @@ int main(void){
             }
         }
     }
-    cout << "\n" << endl;
+    cout << "\n"<< endl;
 
     vector<double> variance(NUM_GENES, 0.0);
 
@@ -98,23 +98,4 @@ int main(void){
 
     return 0;
 }
-
-//実行結果↓
-//平均発現量の上位5つ
-//MTATP6P1 : 3823.68
-//MTND2P28 : 748.617
-//CCNL2 : 142.9
-//SDF4 : 122.183
-//MTND1P23 : 106.86
-
-//scoreの上位5つ
-//B3GALT6 : 2.8817
-//C1orf159 : 1.86784
-//MTCO1P12 : 1.76435
-//KLHL17 : 1.61825
-//ENSG00000284740 : 1.54328
-
-//B3GALT6について↓
-//UDP-ガラクトースから特定の糖鎖にガラクトースを転移する酵素である。
-//主にヘパラン硫酸やコンドロイチン硫酸などのグリコサミノグリカンの糖鎖形成に関与する。
 
