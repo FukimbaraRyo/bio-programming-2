@@ -82,10 +82,65 @@ int main(void){
         int TN = 0;
 
         for(int i=0; i<NUM_TEST; i++){
-            vector<double> distances(NUM_TRAIN);
+            vector<double> distance(NUM_TRAIN);
             for(int j=0; j<NUM_TRAIN; j++){
-                distances[j] = CalcDistance(test_prob[i], train_prob[j]);
+                 distance[j] = CalcDistance(test_prob[i], train_prob[j]);
             }
+            vector<bool> used(NUM_TRAIN, false);
+            int count1 = 0;
+            int count0 = 0;
+
+            for(int n=0; n<k; n++){
+                double min_distance = 100;
+                int min_index = -1;
+                for(int j=0; j<NUM_TRAIN; j++){
+                    if(used[j] == false && distance[j] < min_distance){
+                        min_distance = distance[j];
+                        min_index = j;
+                    }
+                }
+                used[min_index] = true;
+                if(train_labels[min_index] == 1){
+                    count1++;
+                }
+                if(train_labels[min_index] == 0){
+                    count0++;
+                }
+            }
+        int prediction = 0;
+        if(count1 > count0){
+            prediction = 1;
+        }
+        if(test_labels[i] == 1 && prediction ==1){
+            TP++;
+        }
+        else if(test_labels[i] == 1 && prediction ==0){
+            FN++;
+        }
+        else if(test_labels[i] == 0 && prediction ==1){
+            FP++;
+        }
+        else if(test_labels[i] == 0 && prediction ==0){
+            TN++;
         }
     }
+    double sensitivity = (double)TP / (TP+FN);
+    double specificity = (double)TN / (TN+FP);
+
+    double balanced_accuracy = (sensitivity + specificity) / 2.0;
+    cout << "k = " << k << endl;
+    cout << "Balanced Accuracy: " << balanced_accuracy << endl;
+    }
+    return 0;
 }
+
+
+//実行結果↓
+//k = 1
+//Balanced Accuracy: 0.672675
+//k = 3
+//Balanced Accuracy: 0.67664
+//k = 5
+//Balanced Accuracy: 0.66712
+//k = 7
+//Balanced Accuracy: 0.667985
